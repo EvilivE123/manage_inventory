@@ -1,0 +1,54 @@
+<% if @inventory.present? %> 
+  <form>
+    <div class="form-group row justify-content-center mt-3">
+      <label for="wh_code" class="col-md-2 col-form-label">Wh Code</label>
+      <div class="col-md-3">
+        <%= text_field_tag :wh_code, @inventory.warehouse.wh_code, id: 'wh_code', class: 'form-control', disabled: true  %>
+      </div>
+    </div>
+    <div class="form-group row justify-content-center my-3">
+      <label for="name" class="col-md-2 col-form-label">Warehouse Name</label>
+      <div class="col-md-3">
+        <%= text_field_tag :name, @inventory.warehouse.name , id: "name", 
+        class: 'form-control', disabled: true  %>
+      </div>
+    </div>
+    <div class="form-group row justify-content-center mb-3">
+      <label for="pincode" class="col-md-2 col-form-label">Pincode</label>
+      <div class="col-md-3">
+        <%= text_field_tag :pincode, @inventory.warehouse.pincode, id: 'pincode', 
+        class: 'form-control', disabled: true  %>
+      </div>
+    </div>
+   <div class="form-group row justify-content-center mt-3">
+     <label for="product_count" class="col-md-2 col-form-label">Product count</label>
+     <div class="col-md-3">
+       <%= text_field_tag :product_count, @inventory.product_count, class: 'product_count form-control' %>
+     </div>
+   </div>
+   <div class="form-group row justify-content-center mt-3">
+     <div class="col-md-5">
+       <%= link_to 'Back', products_path, class: 'btn btn-danger' %>
+       <%= button_tag :submit, class: 'update_inventory float-right btn btn-success' %>
+     </div>
+   </div>
+  </form>  
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    $('.update_inventory').on('click' ,function(){
+      $.ajax({
+        method: 'PATCH',
+        url: "<%= "#{inventory_path(@inventory, format: :html)}" %>",
+        data: { inventory: { product_count: $('.product_count').val() } },
+        headers: {
+          'X-CSRF-Token': '<%= form_authenticity_token.to_s %>'
+        },
+        success: function(){
+          debugger;
+        }
+      });
+    })
+  });  
+</script>

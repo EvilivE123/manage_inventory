@@ -1,0 +1,45 @@
+<h1 class="text-center"> Create new warehouse</h1>
+
+<%= form_for :warehouse, url: warehouses_path, class: 'warehouse_form', method: :create do |f| %>
+  <form>
+    <div class="form-group row justify-content-center mt-3">
+      <label for="name" class="col-md-2 col-form-label">Name</label>
+      <div class="col-md-3">
+        <%= f.text_field :name, placeholder: 'Enter name', id: 'name', class: 'name form-control' %>
+      </div>
+    </div>
+    <div class="form-group row justify-content-center my-3">
+      <label for="pincode" class="col-md-2 col-form-label">Pincode</label>
+      <div class="col-md-3">
+        <%= f.number_field :pincode, placeholder: 'Enter Pincode', id: "pincode", 
+        class: 'form-control', minlength: 6, maxlength: 6 %>
+      </div>
+    </div>
+    <div class="form-group row justify-content-center mb-3">
+      <label for="max_capacity" class="col-md-2 col-form-label">Max Capacity</label>
+      <div class="col-md-3">
+        <%= f.number_field :max_capacity, placeholder: 'Enter Max Capacity', id: 'max_capacity', 
+        class: 'form-control' %>
+      </div>
+    </div> 
+    <div class="form-group row justify-content-center mt-3">
+      <div class="col-md-5">
+        <%= link_to 'Back', products_path, class: 'btn btn-danger' %>
+        <%= f.submit :submit, class: 'float-right btn btn-success' %>
+      </div>
+    </div>
+  </form>
+<% end %>
+
+<script>
+  $(document).on('turbolinks:load', function(){
+
+    if(<%= "#{@warehouse.errors.present?}" %>){
+      Swal.fire({
+        title: "Errors!",
+        html: "<%= "#{@warehouse.errors.full_messages.to_sentence}".html_safe %>",
+        icon: "error",
+      })
+    }
+  })
+</script>
