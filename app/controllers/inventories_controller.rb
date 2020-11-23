@@ -4,7 +4,7 @@ class InventoriesController < ApplicationController
     inventory.update_attributes(inventory_param)
     respond_to do |format|
       if inventory.valid? 
-        flash[:notice] = inventory.success_message
+        flash[:success] = inventory.success_message
       else
         flash[:danger] = inventory.errors.full_messages.to_sentence
       end
